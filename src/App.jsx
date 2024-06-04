@@ -22,7 +22,6 @@ const App = () => {
             </Routes>
           </div>
         </Layout>
-
         <div className="footer">
           <Typography.Text level={5} style={{ color: "white", textAlign: "center" }}>
             Cryptoverse
