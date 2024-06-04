@@ -6,8 +6,10 @@ import { useGetCryptoNewsQuery } from "../../services/cryptoNewsApi";
 const { Text, Title } = Typography;
 const { Option } = Select;
 
+const deomimageUrl = "http://coinrevolution.com/ep-content/uploads/2020/06/cryptonews.jpg";
+
 const News = ({ simplified }) => {
-  const { data: cryptoNews } = useGetCryptoNewsQuery({ newsCategory: "Cryptocurrency", count: simplified ? 6: 12 });
+  const { data: cryptoNews } = useGetCryptoNewsQuery({ newsCategory: "Cryptocurrency", count: simplified ? 6 : 12 });
 
   if (!cryptoNews?.value) return "Loading...";
 
@@ -21,6 +23,17 @@ const News = ({ simplified }) => {
                 <Title className="news-title" level={4}>
                   {news.name}
                 </Title>
+                <img
+                  style={{ maxWidth: "200px", maxHeight: "100px" }}
+                  src={news?.image?.thumbnail?.contentUrl || deomimageUrl}></img>
+              </div>
+              <p>{news.description > 100 ? `${news.description.substring(0, 100)}...` : news.description}</p>
+              <div className="provider-container">
+                <div>
+                  <Avatar src={news.provider[0]?.image?.thumbnail?.contentUrl || demoImage} alt="news"></Avatar>
+                  <Text className="provider-name">{news.provider[0]?.name}</Text>
+                </div>
+                <Text>{moment(news.datePublished).startOf("ss").fromNow}</Text>
               </div>
             </a>
           </Card>
